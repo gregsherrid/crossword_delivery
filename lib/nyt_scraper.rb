@@ -2,12 +2,15 @@ require "open-uri"
 require "nokogiri"
 require "rest_client"
 
+# Class for finding puzzle IDs on the NYTimes Crossword home page
+# and for retrieving PDFs of crossword puzzles
 class NYTScraper
 
 	def initialize(verbose = false)
 		@verbose = verbose
 	end
 
+	# Scrapes the Crossword Homepage, pulls IDs of puzzles linked from the page
 	def scrape_crossword_home
 		url = "https://www.nytimes.com/crosswords"
 		response = RestClient.get(url, headers = self.get_headers)
@@ -16,12 +19,9 @@ class NYTScraper
 		@puzzle_ids = extract_puzzle_ids(doc)
 	end
 
-	def fetch_puzzle(id)
-		url = "https://www.nytimes.com/svc/crosswords/v2/puzzle/#{ id }.pdf?block_opacity=55"
-		response = RestClient.get(url, headers = self.get_headers)
-		response.body
-	end
-
+	# Fetches puzzles for all puzzles discover which AREN'T
+	# already recognized by the puzzle_manager
+	# Wait `sleep_time` seconds between each fetch
 	def fetch_new_puzzles(puzzle_manager, sleep_time = 5.0)
 		@puzzle_ids.each do |id|
 			if !puzzle_manager.has_puzzle?(id)
@@ -34,6 +34,15 @@ class NYTScraper
 		end
 	end
 
+	# Takes the ID of a puzzle, returns a PDF file for that puzzle
+	def fetch_puzzle(id)
+		url = "https://www.nytimes.com/svc/crosswords/v2/puzzle/#{ id }.pdf?block_opacity=55"
+		response = RestClient.get(url, headers = self.get_headers)
+		response.body
+	end
+
+	# Given a Nokogiri object, find all links to puzzles
+	# and extract the puzzle ID from them
 	def extract_puzzle_ids(doc)
 		hrefs = doc.css("a").map do |link|
 			link.attribute("href").value
@@ -50,6 +59,7 @@ class NYTScraper
 		return ids.uniq
 	end
 
+	# Generates request header, the most important part being the cookie
 	def get_headers
 		cookie = ConfigData.get(:nytimes, :cookie)
 
@@ -62,7 +72,8 @@ class NYTScraper
 			"cookie" => cookie,
 			"if-none-match" => 'W/"4fef7-vHgtjdQ3Rb/QZiWFN5GUOhVw7z4"',
 			"referer" => "https://www.google.com/",
-			"upgrade-insecure-requests" => "1"
+			"upgrade-insecure-requests" => "1",
+			"user-agent" => USER_AGENT
 		}
 	end
 

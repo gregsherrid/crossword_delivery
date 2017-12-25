@@ -10,11 +10,15 @@ def main
 	puzzle_manager = PuzzleManager.new(verbose: true)
 	delivery_manager = DeliveryManager.new(test_env: false, verbose: true)
 
+	# Pulls all new crossword puzzles
 	scraper.scrape_crossword_home
 	scraper.fetch_new_puzzles(puzzle_manager, sleep_time = 3.0)
 
+	# Update puzzle manager with the IDs of the new puzzles
 	puzzle_manager.refresh_ids
+
 	if puzzle_manager.has_new_packet?
+		# Generates a new packet, sends a receipt, and mails the packet
 		packet_path = puzzle_manager.save_new_packet
 		puzzle_manager.send_receipt
 		delivery_manager.send_letter(packet_path)

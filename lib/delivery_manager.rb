@@ -1,5 +1,6 @@
 require "lob"
 
+# Class for delivering crossword packets in letters via Lob
 class DeliveryManager
 
 	def initialize(test_env: false, verbose: false)
@@ -13,6 +14,7 @@ class DeliveryManager
 
 	end
 
+ 	# Requests that Lob sends the provided pdf as a letter
 	def send_letter(pdf_path)
 		puts "Mailing: #{ pdf_path }" if @verbose
 		@lob.letters.create(
@@ -25,7 +27,8 @@ class DeliveryManager
 			address_placement: :insert_blank_page
 		)
 	end
-
+ 
+ 	# Gets either "from" or "to" address data
 	def get_address(address_type)
 		return {
 			name: 			ConfigData.get(address_type, :name),
