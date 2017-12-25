@@ -12,20 +12,24 @@ git clone https://github.com/gregsherrid/crossword_delivery.git
 cd crossword_delivery
 ```
 
+This requires ruby 2.4.1, although it might work in other ruby versions (by removing the `.ruby-version` file).
+
+# Configuration
+
 Make a copy of the example configuration YML file as `private_config.yml` and edit it using a CL text editor:
 ```
-cp ~/config/example-private-config.yml ~/config/private-config.yml
-emacs ~/config/private-config.yml
+cp config/example-private-config.yml config/private-config.yml
+emacs config/private-config.yml
 ```
 
 You'll need to enter in your To and From addresses, as well as Lob API keys and your NYTimes Cookie.
 
 # Scheduling
 
-Update the 
+Update the crontab of the server by using the 
 
 ```
-whenever --update-crontab
+bundle exec whenever --update-crontab
 ```
 
 # Email Receipts

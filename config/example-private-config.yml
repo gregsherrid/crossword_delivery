@@ -1,6 +1,6 @@
 config:
   custom:
-    min_puzzles_per_packet: 3
+    min_puzzles_per_packet: 7
 
   nytimes:
     cookie: "some-really-really-long-string"
