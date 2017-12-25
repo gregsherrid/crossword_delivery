@@ -5,6 +5,7 @@ require "./lib/nyt_scraper.rb"
 require "./lib/puzzle_manager.rb"
 require "./lib/delivery_manager.rb"
 
+# Main loop
 def main
 	scraper = NYTScraper.new(verbose: true)
 	puzzle_manager = PuzzleManager.new(verbose: true)
@@ -25,4 +26,4 @@ def main
 	end
 end
 
-main
+main # Good luck!
