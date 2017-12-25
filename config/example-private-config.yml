@@ -26,7 +26,7 @@ config:
     zip: "00000"
 
   receipts:
-    active: true
+    active: false
     email: peter+puzzler@example.com
     mailgun_private_api_key: key-MAILGUN_API_KEY
     mailgun_domain: sandbox000000000000000000000.mailgun.org

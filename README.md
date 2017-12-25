@@ -32,27 +32,27 @@ You'll need to enter in your To and From addresses, following the examples in `p
 
 ### NYTimes Crossword account
 
-Without registering for an account, you can just put any string in this field and you'll be able to grab the selection of free puzzles off the [New York Times Crossword homepage](https://www.nytimes.com/crosswords). 
+Without registering for an account, you can just put any string in this field and you'll be able to grab a small selection of free puzzles off the [New York Times Crossword homepage](https://www.nytimes.com/crosswords). 
 
-When sign up for a paid account (I highly recommend it!), look up your browser cookie in the request headers sent to the website and enter it into `private-config.yml`.
+When logged into a paid account, look up your browser cookie in the request headers sent on any page and enter it into `private-config.yml`.
 
-### Lob API Keys
+### Lob API keys
 
 [Lob](https://lob.com) provides an API for sending letters. They have a "Developer" pricing tier that supports pay-as-you go letter delivery. Sign up for an account and copy your test and live API keys (you'll have to enter a credit card to access the live API key).
 
-[At of the time of this writing](https://lob.com/pricing/letters), each letter costs $0.84 + $0.10 per page (the first page is reserved for the address).
+At of the [time of this writing](https://lob.com/pricing/letters), each letter costs $0.84 + $0.10 per page (the first page is reserved for the address).
 
 Letters sent using the test API key will never be sent. Letters sent with the live key can be cancelled on Lob's dashboard for a period of 5 minutes.
 
 ### Receipts
 
-This be configured to deliver a receipt by email every time a crossword packet delivery is scheduled. 
+The service can be configured to deliver a receipt by email every time a crossword packet delivery is scheduled. This is turned off by default, but can be activated by settings the `active` values in `receipts` to true and adding additional information.
 
-Sign up for a [Mailgun account](https://www.mailgun.com), which has a free pricing tier which only delivers mail to verified emails. That's all we'll need: sign up for an account and add your email as a verified email. You can add your own domain to Mailgun but you can also just send under their sandbox domain. Add this email address, your Mailgun API key, and your Mailgun domain to `private-config.yml`.
+[Mailgun account](https://www.mailgun.com) has a free pricing tier which only delivers mail to verified emails. Sign up for an account and add your email as a verified email. You can add your own domain to Mailgun but you can also just send under their sandbox domain. Add this email address, Mailgun API key, and your Mailgun domain to `private-config.yml`.
 
 # Scheduling
 
-Update the crontab on the server by using the following command:
+Update the crontab on the server by using the following command in the project directory:
 
 ```
 bundle exec whenever --update-crontab
