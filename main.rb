@@ -13,7 +13,7 @@ def main
 
 	# Pulls all new crossword puzzles
 	scraper.scrape_crossword_home
-	scraper.fetch_new_puzzles(puzzle_manager, sleep_time = 3.0)
+	scraper.fetch_new_puzzles(puzzle_manager)
 
 	# Update puzzle manager with the IDs of the new puzzles
 	puzzle_manager.refresh_ids
