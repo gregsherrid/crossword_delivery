@@ -1,0 +1,32 @@
+config:
+  custom:
+    min_puzzles_per_packet: 3
+
+  nytimes:
+    cookie: "some-really-really-long-string"
+
+  lob:
+    test_api_key: test_LOB_API_KEY
+    live_api_key: live_LOB_API_KEY
+
+  to_address:
+    name: "Carrie Crossword"
+    line_1: "123 Avid Avenue"
+    line_2: "Apt #7"
+    city: "San Deigo"
+    state: "CA"
+    zip: "99999"
+
+  from_address:
+    name: "Peter Puzzler"
+    line_1: "987 Clever's Crosswalk"
+    line_2: ""
+    city: "New York"
+    state: "NY"
+    zip: "00000"
+
+  receipts:
+    active: true
+    email: peter+puzzler@example.com
+    mailgun_private_api_key: key-MAILGUN_API_KEY
+    mailgun_domain: sandbox000000000000000000000.mailgun.org
